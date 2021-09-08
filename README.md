@@ -1,7 +1,7 @@
 # vuetest2.0
 
 > A Vue.js project
-
+>my small useless app!
 ## Build Setup
 
 ``` bash
