@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
-    <daoHangLan></daoHangLan>
-     <router-view/>
+  <div id="app" >
+    <daoHangLan :func='get'></daoHangLan>
+     <router-view />
     
   </div>
 </template>
@@ -19,28 +19,26 @@ export default {
   },
   data(){
     return{
-    
+      daymode:'',
     }
-  },
-  created(){
-     fetch('./src/components/data/data.json')
-    .then(res =>{ 
-      return res.json()
-    })
-    .then(data1 =>{
-      console.log(data1)
-    })
   },
   methods: {
    disable(){
       this.welcome ='';
-    }
+    },
+    get(data){
+    console.log(data)
   },
+  },
+ 
 
 }
 </script>
 
 <style>
+.darkmode{
+  color:#fff;
+}
 .welcome{
   display: block;
   width: 100vw;
