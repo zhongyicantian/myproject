@@ -6,16 +6,16 @@
            </li>
            <li v-for="(item,index) in list" :key="index">
                <router-link :to="item.router">
-                    <div class="button" @click="select1(index)" >
+                    <div class="button" :class="{'darkmode': daymode == `黑夜模式`}" @click="select1(index)" >
                         {{item.name}}
                     </div> 
-                    <div class="anibar1" :class="{'anibar': index === currentIndex}"></div>  
+                    <div class="anibar1" :class="{'anibar': index === currentIndex,'darkmode': daymode == `黑夜模式`}" ></div>  
                 </router-link> 
            </li>
            <li>
-               <div class="button">
-                <label for="change" @click="change">
-                   <span id="chan">{{ daymode }}</span> 
+               <div>
+                <label for="change"  @click="change(),send()">
+                   <span  id="chan" :class="{'darkmode': daymode == `黑夜模式`}">{{ daymode }}</span> 
                </label>
                <input type="checkbox" name="" id="change" style="display:none;"> 
                </div>
@@ -38,6 +38,10 @@ export default {
             ]
          }
      },
+     /*mounted:function(){
+         console.log(this.daymode)
+         this.$emit('func',this.daymode)
+     },*/
      methods:{
          select1(index){
              this.currentIndex = index;  
@@ -54,12 +58,16 @@ export default {
                  bodymode.classList.toggle('darkmode')
              }
          }, 
+         send(){
+             this.$emit('func',this.daymode)
+         }
      }
 }
 </script>
 <style>
 .darkmode{
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.4);
+  color: #fff;
 }
 :root{
     --square:75px;
@@ -90,6 +98,9 @@ export default {
     text-align: center;
     letter-spacing: 2px;
 }
+.button.darkmode{
+    background-color: rgba(0,0,0,0.4);
+}
 a{
     text-decoration: none;
     font-family: '微雅软黑';
@@ -104,6 +115,10 @@ a{
     height: 3px;
     background:  #42B983;
 }
+.anibar1.darkmode,
+.button:hover ~.anibar1.darkmode{
+    background-color: orange;
+}
 .button:hover ~.anibar1{
     --align:20px;
     width:calc(var(--button-width) - var(--align));
@@ -112,10 +127,11 @@ a{
     height: 3px;
     background:  #42B983;
 }
-#chan::after{
+
+#chan{
     width: 75px;
-    height: 60px;
+    height: 75px;
     display: block;
-    content: '';
 }
+
 </style>
